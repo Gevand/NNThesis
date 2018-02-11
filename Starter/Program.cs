@@ -10,6 +10,8 @@ namespace Starter
     {
         static void Main(string[] args)
         {
+            Neural.NeuralNet.XOR.Run();
+            Console.ReadKey();
         }
     }
 }
