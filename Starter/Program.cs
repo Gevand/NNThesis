@@ -10,7 +10,8 @@ namespace Starter
     {
         static void Main(string[] args)
         {
-            Neural.NeuralNet.XOR.Run();
+            Neural.NeuralNet.VegetationNN.Run();
+            Console.WriteLine("Done");
             Console.ReadKey();
         }
     }
