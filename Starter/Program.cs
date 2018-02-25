@@ -10,7 +10,10 @@ namespace Starter
     {
         static void Main(string[] args)
         {
-            Neural.NeuralNet.VegetationNN.Run();
+            for (int i = 0; i < 10; i++)
+            {
+                Neural.NeuralNet.VegetationNN.Run();
+            }
             Console.WriteLine("Done");
             Console.ReadKey();
         }

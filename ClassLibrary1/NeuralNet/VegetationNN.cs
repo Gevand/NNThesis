@@ -28,39 +28,46 @@ namespace Neural.NeuralNet
 
         public static void Run()
         {
+            FileInfo networkFile = new FileInfo(@"D:\Imagery\network\network.eg");
+
             var network = new BasicNetwork();
-            network.AddLayer(new BasicLayer(null, true, 30000));
-            network.AddLayer(new BasicLayer(new ActivationSigmoid(), true, 100));
+            network.AddLayer(new BasicLayer(null, true, 25 * 25 * 3));
+            network.AddLayer(new BasicLayer(new ActivationSigmoid(), true, 50));
             network.AddLayer(new BasicLayer(new ActivationSigmoid(), false, 2));
-
-
-
             network.Structure.FinalizeStructure();
             network.Reset();
 
+            if (System.IO.File.Exists(@"D:\Imagery\network\network.eg"))
+                network = (BasicNetwork)(Encog.Persist.EncogDirectoryPersistence.LoadObject(networkFile));
+
+
+
             Encog.ML.Data.Image.ImageMLDataSet trainingSet = new Encog.ML.Data.Image.ImageMLDataSet(new RGBDownsample(), false, 1, -1);
 
-            string[] fileEntries = Directory.GetFiles(@"D:\Imagery\_Vege");
+            Random rnd = new Random();
+            //take 1000,, take 5000 from nothing and scramble them
+            List<string> fileEntries = Directory.GetFiles(@"D:\Imagery\_Vege").OrderBy(x => rnd.Next()).Take(1000).ToList();
+            fileEntries.AddRange(Directory.GetFiles(@"D:\Imagery\_Nothing").OrderBy(x => rnd.Next()).Take(5000).ToArray());
+            fileEntries = fileEntries.OrderBy(x => rnd.Next()).Take(6000).ToList();
             foreach (var file in fileEntries)
             {
-                if (!file.Contains("_real")) continue;
-
-                ImageMLData data = new ImageMLData(new System.Drawing.Bitmap(file));
-                BasicMLData ideal = new BasicMLData(Vegetation);
-                trainingSet.Add(data, ideal);
+                var bitmap = new System.Drawing.Bitmap(file);
+                ImageMLData data = new ImageMLData(bitmap);
+                if (file.Contains("_Nothing"))
+                {
+                    BasicMLData ideal = new BasicMLData(Vegetation);
+                    trainingSet.Add(data, ideal);
+                }
+                else
+                {
+                    BasicMLData ideal = new BasicMLData(Nothing);
+                    trainingSet.Add(data, ideal);
+                }
             }
-            fileEntries = Directory.GetFiles(@"D:\Imagery\_Nothing");
-            foreach (var file in fileEntries)
-            {
-                if (!file.Contains("_real")) continue;
+            trainingSet.Downsample(25, 25);
 
-                ImageMLData data = new ImageMLData(new System.Drawing.Bitmap(file));
-                BasicMLData ideal = new BasicMLData(Nothing);
-                trainingSet.Add(data, ideal);
-            }
-            trainingSet.Downsample(100, 100);
+            IMLTrain train = new Backpropagation(network, trainingSet, .01, 0.02) { };
 
-            IMLTrain train = new Backpropagation(network, trainingSet, .01, .9) { };
 
             int epoch = 1;
             do
@@ -68,35 +75,32 @@ namespace Neural.NeuralNet
                 train.Iteration();
                 Console.WriteLine(@"Epoch #" + epoch + @" Error: " + train.Error);
                 epoch++;
-            } while (train.Error > 0.01 || epoch > 100);
+            } while (epoch < 10);
             train.FinishTraining();
 
+            Encog.Persist.EncogDirectoryPersistence.SaveObject(networkFile, (BasicNetwork)network);
             Encog.ML.Data.Image.ImageMLDataSet testingSet = new Encog.ML.Data.Image.ImageMLDataSet(new RGBDownsample(), false, 1, -1);
-            fileEntries = Directory.GetFiles(@"D:\Imagery\_VegeTest");
+            fileEntries = Directory.GetFiles(@"D:\Imagery\_VegeTest").ToList();
             foreach (var file in fileEntries)
             {
-                if (!file.Contains("_real")) continue;
-
                 ImageMLData data = new ImageMLData(new System.Drawing.Bitmap(file));
                 BasicMLData ideal = new BasicMLData(Vegetation);
                 testingSet.Add(data, ideal);
             }
-            fileEntries = Directory.GetFiles(@"D:\Imagery\_NothingTest");
+            fileEntries = Directory.GetFiles(@"D:\Imagery\_NothingTest").ToList();
             foreach (var file in fileEntries)
             {
-                if (!file.Contains("_real")) continue;
-
                 ImageMLData data = new ImageMLData(new System.Drawing.Bitmap(file));
                 BasicMLData ideal = new BasicMLData(Nothing);
                 testingSet.Add(data, ideal);
             }
-            testingSet.Downsample(100, 100);
+            testingSet.Downsample(25, 25);
 
             Console.WriteLine(@"Neural Network Results:");
             foreach (IMLDataPair pair in testingSet)
             {
                 IMLData output = network.Compute(pair.Input);
-                Console.WriteLine(pair.Input[0] + @"," + pair.Input[1] + @", actual=" + output[0] + @",ideal=" + pair.Ideal[0]);
+                Console.WriteLine(@", actual (" + output[0] + @"," + output[1] + @"),ideal (" + pair.Ideal[0] + @"," + pair.Ideal[1] + ")");
             }
 
             EncogFramework.Instance.Shutdown();
