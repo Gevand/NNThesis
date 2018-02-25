@@ -55,18 +55,18 @@ namespace Neural.NeuralNet
                 ImageMLData data = new ImageMLData(bitmap);
                 if (file.Contains("_Nothing"))
                 {
-                    BasicMLData ideal = new BasicMLData(Vegetation);
+                    BasicMLData ideal = new BasicMLData(Nothing);
                     trainingSet.Add(data, ideal);
                 }
                 else
                 {
-                    BasicMLData ideal = new BasicMLData(Nothing);
+                    BasicMLData ideal = new BasicMLData(Vegetation);
                     trainingSet.Add(data, ideal);
                 }
             }
             trainingSet.Downsample(25, 25);
 
-            IMLTrain train = new Backpropagation(network, trainingSet, .01, 0.02) { };
+            IMLTrain train = new Backpropagation(network, trainingSet, .001, 0.02) { };
 
 
             int epoch = 1;
@@ -75,7 +75,7 @@ namespace Neural.NeuralNet
                 train.Iteration();
                 Console.WriteLine(@"Epoch #" + epoch + @" Error: " + train.Error);
                 epoch++;
-            } while (epoch < 10);
+            } while (epoch < 50);
             train.FinishTraining();
 
             Encog.Persist.EncogDirectoryPersistence.SaveObject(networkFile, (BasicNetwork)network);
