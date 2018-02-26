@@ -26,7 +26,7 @@ namespace GrassIdentifier
             using (OpenFileDialog dlg = new OpenFileDialog())
             {
                 dlg.Title = "Open Image";
-                dlg.Filter = "Image files (*.bmp, *.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.bmp, *.jpg; *.jpeg; *.jpe; *.jfif; *.png";
+                dlg.Filter = "Image files (*.bmp, *.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.bmp; *.jpg; *.jpeg; *.jpe; *.jfif; *.png";
 
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
@@ -56,7 +56,7 @@ namespace GrassIdentifier
 
                             for (int j = 0; j < 25; j++)
                             {
-                                var px = bitMap.GetPixel(hCounter * 25 + i, Wcounter * 25 + j);
+                                var px = bitMap.GetPixel(Wcounter * 25 + j, hCounter * 25 + i);
                                 _25x25bitmap.SetPixel(i, j, px);
                             }
                         }
@@ -80,9 +80,9 @@ namespace GrassIdentifier
 
                                 var px = _25x25bitmap.GetPixel(i, j);
                                 if (!isVege)
-                                    outputBitmap.SetPixel(hCounter * 25 + i, Wcounter * 25 + j, px);
+                                    outputBitmap.SetPixel( Wcounter * 25 + j, hCounter * 25 + i, px);
                                 else
-                                    outputBitmap.SetPixel(hCounter * 25 + i, Wcounter * 25 + j, Color.FromArgb(px.R, px.R, px.R));
+                                    outputBitmap.SetPixel( Wcounter * 25 + j, hCounter * 25 + i, Color.FromArgb(px.R, px.R, px.R));
                             }
                         }
 
