@@ -1,0 +1,63 @@
+﻿namespace GrassIdentifier
+{
+    partial class NeuralForm
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.pbOutPut = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pbOutPut)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // pbOutPut
+            // 
+            this.pbOutPut.Location = new System.Drawing.Point(12, 12);
+            this.pbOutPut.Name = "pbOutPut";
+            this.pbOutPut.Size = new System.Drawing.Size(172, 69);
+            this.pbOutPut.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pbOutPut.TabIndex = 0;
+            this.pbOutPut.TabStop = false;
+            // 
+            // NeuralForm
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(192, 89);
+            this.Controls.Add(this.pbOutPut);
+            this.Name = "NeuralForm";
+            this.Text = "NeuralForm";
+            this.Load += new System.EventHandler(this.NeuralForm_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pbOutPut)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.PictureBox pbOutPut;
+    }
+}

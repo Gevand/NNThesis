@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Starter", "Starter\Starter.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeuralNet.Test", "NeuralNet.Test\NeuralNet.Test.csproj", "{EBC828D9-9E8F-4E5A-A397-BDA66A2CC8D3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrassIdentifier", "GrassIdentifier\GrassIdentifier.csproj", "{62B30ACD-AFBF-4BED-BCDE-42BF03044649}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,14 @@ Global
 		{EBC828D9-9E8F-4E5A-A397-BDA66A2CC8D3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EBC828D9-9E8F-4E5A-A397-BDA66A2CC8D3}.Release|x64.ActiveCfg = Release|Any CPU
 		{EBC828D9-9E8F-4E5A-A397-BDA66A2CC8D3}.Release|x64.Build.0 = Release|Any CPU
+		{62B30ACD-AFBF-4BED-BCDE-42BF03044649}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62B30ACD-AFBF-4BED-BCDE-42BF03044649}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62B30ACD-AFBF-4BED-BCDE-42BF03044649}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{62B30ACD-AFBF-4BED-BCDE-42BF03044649}.Debug|x64.Build.0 = Debug|Any CPU
+		{62B30ACD-AFBF-4BED-BCDE-42BF03044649}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62B30ACD-AFBF-4BED-BCDE-42BF03044649}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62B30ACD-AFBF-4BED-BCDE-42BF03044649}.Release|x64.ActiveCfg = Release|Any CPU
+		{62B30ACD-AFBF-4BED-BCDE-42BF03044649}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
