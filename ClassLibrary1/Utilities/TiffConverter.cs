@@ -31,11 +31,11 @@ namespace Neural.Utilities
                 int rowCount = 0;
                 int colCount = 0;
                 // Read the image into the memory width 
-                while (1000 >= rowCount * colCount)
+                while (2000 >= rowCount * colCount)
                 {
                     try
                     {
-                        bool isGrass = false;
+
                         int counter = 0;
                         using (Bitmap bmp = new Bitmap(splitPixelSize, splitPixelSize))
                         {
@@ -73,9 +73,9 @@ namespace Neural.Utilities
                                     bmp.SetPixel(i, j, Color.FromArgb(red, green, blue));
                                 }
                             string path = @"D:\Imagery\_Nothing";
-                            if (counter > 25)
+                            if (counter > 5)
                                 path = @"D:\Imagery\_Vege";
-                            else if (counter < 5)
+                            else if (counter == 0)
                                 path = @"D:\Imagery\_Nothing";
                             else
                                 continue;

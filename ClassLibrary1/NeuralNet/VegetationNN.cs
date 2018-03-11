@@ -24,15 +24,16 @@ namespace Neural.NeuralNet
 
         public static double[] Nothing = { 1.0, 0.0 };
 
-
+        public const int SIZE = 10;
+        public const int NERUONCOUNT = 10;
 
         public static void Run()
         {
             FileInfo networkFile = new FileInfo(@"D:\Imagery\network\network.eg");
 
             var network = new BasicNetwork();
-            network.AddLayer(new BasicLayer(null, true, 25 * 25 * 3));
-            network.AddLayer(new BasicLayer(new ActivationSigmoid(), true, 50));
+            network.AddLayer(new BasicLayer(null, true, SIZE * SIZE * 3));
+            network.AddLayer(new BasicLayer(new ActivationSigmoid(), true, NERUONCOUNT));
             network.AddLayer(new BasicLayer(new ActivationSigmoid(), false, 2));
             network.Structure.FinalizeStructure();
             network.Reset();
@@ -64,7 +65,7 @@ namespace Neural.NeuralNet
                     trainingSet.Add(data, ideal);
                 }
             }
-            trainingSet.Downsample(25, 25);
+            trainingSet.Downsample(SIZE, SIZE);
 
             IMLTrain train = new Backpropagation(network, trainingSet, .001, 0.02) { };
 
@@ -94,7 +95,7 @@ namespace Neural.NeuralNet
                 BasicMLData ideal = new BasicMLData(Nothing);
                 testingSet.Add(data, ideal);
             }
-            testingSet.Downsample(25, 25);
+            testingSet.Downsample(SIZE, SIZE);
 
             Console.WriteLine(@"Neural Network Results:");
             foreach (IMLDataPair pair in testingSet)

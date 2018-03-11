@@ -24,7 +24,7 @@ namespace NeuralNet.Test
                     counter++;
                     if (counter > 100)
                         break;
-                    var byteRay = TiffConverter.Split(file, 25);
+                    var byteRay = TiffConverter.Split(file, 10);
                 }
             }
 
