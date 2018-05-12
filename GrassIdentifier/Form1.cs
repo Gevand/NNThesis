@@ -71,7 +71,7 @@ namespace GrassIdentifier
                         foreach (IMLDataPair pair in testingSet)
                         {
                             IMLData output = network.Compute(pair.Input);
-                            if (output[1] > output[0])
+                            if (output[1] > .55)
                                 isVege = true;
                         }
                         for (int i = 0; i < SIZE; i++)
